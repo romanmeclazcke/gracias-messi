@@ -24,7 +24,7 @@ const SCENES = [
     ],
   },
   {
-    img: 'potrero.jpg', kb: 'kb-left', look: 'sepia', dur: 7000,
+    img: 'potrero.jpg', clip: 'potrero.mp4', look: 'sepia', dur: 9000,
     eyebrow: 'La primera pelota',
     body: 'La primera la dejó pasar. La segunda le cayó en la zurda y arrancó: dejó a todos en el camino. <em>Desde entonces, cada gol tiene dos dedos apuntando al cielo. Son para ella.</em>',
   },
