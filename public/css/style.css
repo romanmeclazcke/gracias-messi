@@ -273,6 +273,15 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .btn__dot { width: 7px; height: 7px; border-radius: 50%; background: #06121f; animation: pulse 2s infinite; }
 @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(0.7); } }
 
+.world__by {
+  position: absolute; left: 50%; bottom: max(10px, env(safe-area-inset-bottom)); transform: translateX(-50%);
+  padding: 6px 10px; white-space: nowrap; font-size: 9px; text-decoration: none;
+  color: rgba(244, 248, 252, 0.4); transition: color 0.3s;
+}
+.world__by strong { font-weight: 400; color: rgba(244, 248, 252, 0.7); transition: color 0.3s; }
+.world__by:hover, .world__by:hover strong { color: var(--accent-2); }
+.world.is-entering .world__by { opacity: 0; animation: rise 1.6s 1.4s var(--ease) forwards; }
+
 .world__hint {
   position: absolute; right: clamp(20px, 5vw, 72px); bottom: clamp(30px, 6vh, 70px);
   color: rgba(244, 248, 252, 0.35); margin: 0; pointer-events: none;
