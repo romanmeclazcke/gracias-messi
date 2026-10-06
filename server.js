@@ -109,8 +109,18 @@ app.use((err, req, res, next) => {
   res.status(500).json({ error: 'Algo falló. Probá de nuevo.' });
 });
 
-store
-  .init()
+async function initStore(attempt = 1) {
+  try {
+    await store.init();
+  } catch (err) {
+    if (attempt >= 30) throw err;
+    console.warn(`Base de datos no disponible (${err.code || err.message}), reintento ${attempt}/30 en 10 s...`);
+    await new Promise((r) => setTimeout(r, 10000));
+    return initStore(attempt + 1);
+  }
+}
+
+initStore()
   .then(() => app.listen(PORT, () => console.log(`Gracias Leo -> http://localhost:${PORT} (mensajes en ${store.kind})`)))
   .catch((err) => {
     console.error('No se pudo iniciar el almacenamiento de mensajes:', err);
