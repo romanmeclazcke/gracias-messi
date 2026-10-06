@@ -43,19 +43,49 @@ async function showWorld() {
   setTimeout(() => world.classList.remove('is-entering'), 4000);
 }
 
-const film = new Film($('film'), { onDone: () => setTimeout(showWorld, 700) });
+const film = new Film($('film'), {
+  onDone: () => {
+    updateRotate();
+    screen.orientation?.unlock?.();
+    setTimeout(showWorld, 700);
+  },
+});
+
+const isPhone = matchMedia('(pointer: coarse) and (max-width: 950px), (pointer: coarse) and (max-height: 500px)');
+const portrait = matchMedia('(orientation: portrait)');
+let verticalOk = false;
+function updateRotate() {
+  const ask = film.running && isPhone.matches && portrait.matches && !verticalOk;
+  $('rotate').hidden = !ask;
+  if (ask) film.pause();
+  else film.resume();
+}
+portrait.addEventListener('change', updateRotate);
+$('rotateSkip').addEventListener('click', () => {
+  verticalOk = true;
+  updateRotate();
+});
+
+async function goLandscape() {
+  if (!isPhone.matches) return;
+  try {
+    await document.documentElement.requestFullscreen?.({ navigationUI: 'hide' });
+    await screen.orientation?.lock?.('landscape');
+  } catch {}
+}
 
 $('gate').addEventListener(
   'click',
   () => {
     const gate = $('gate');
     gate.classList.add('gate--exit');
+    goLandscape();
     score.start();
     $('mute').hidden = false;
     setTimeout(() => {
       gate.hidden = true;
       if (location.hash === '#mundo') showWorld();
-      else film.play();
+      else film.play().then(updateRotate);
     }, 1100);
   },
   { once: true }
@@ -66,7 +96,7 @@ $('replay').addEventListener('click', () => {
   globe.stop();
   $('world').hidden = true;
   $('mute').classList.remove('is-world');
-  film.play();
+  film.play().then(updateRotate);
 });
 
 $('mute').addEventListener('click', () => {

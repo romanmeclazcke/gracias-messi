@@ -142,11 +142,44 @@ export class Film {
     this.index = -1;
     this.elapsed = 0;
     this.done = false;
+    this.paused = false;
+    this.root.classList.remove('is-paused');
     this.nextScene();
   }
 
   later(fn, ms) {
-    this.timers.push(setTimeout(fn, ms));
+    const t = { fn, due: performance.now() + ms };
+    t.id = setTimeout(() => {
+      this.timers = this.timers.filter((x) => x !== t);
+      fn();
+    }, ms);
+    this.timers.push(t);
+  }
+
+  get running() {
+    return !this.done && !this.root.hidden;
+  }
+
+  pause() {
+    if (this.paused || !this.running) return;
+    this.paused = true;
+    const now = performance.now();
+    this.timers.forEach((t) => {
+      clearTimeout(t.id);
+      t.left = Math.max(0, t.due - now);
+    });
+    this.root.classList.add('is-paused');
+    this.stage.querySelectorAll('video').forEach((v) => v.pause());
+  }
+
+  resume() {
+    if (!this.paused) return;
+    this.paused = false;
+    const pending = this.timers;
+    this.timers = [];
+    pending.forEach((t) => this.later(t.fn, t.left));
+    this.root.classList.remove('is-paused');
+    this.stage.querySelectorAll('video').forEach((v) => v.play().catch(() => {}));
   }
 
   nextScene() {
@@ -261,8 +294,10 @@ export class Film {
   finish() {
     if (this.done) return;
     this.done = true;
-    this.timers.forEach(clearTimeout);
+    this.timers.forEach((t) => clearTimeout(t.id));
     this.timers = [];
+    this.paused = false;
+    this.root.classList.remove('is-paused');
     score.duck(false);
     score.setIntensity(0.1);
     this.stage.querySelectorAll('video').forEach((v) => v.pause());
