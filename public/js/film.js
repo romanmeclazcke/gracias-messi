@@ -70,7 +70,7 @@ const SCENES = [
     body: 'Copa América ante Brasil, en Brasil. Cayó de rodillas y lloró. Lloramos todos.',
   },
   {
-    img: '2022-tribuna.jpg', kb: 'kb-in', look: 'soft', dur: 7500, intensity: 0.65, pos: 'center 70%',
+    img: '2022-tribuna.jpg', clip: '2022-mexico.mp4', mz: 1.15, look: 'soft', dur: 11000, intensity: 0.65,
     eyebrow: 'Catar 2022',
     title: '“Que la gente confíe”',
     body: 'Después de perder con Arabia Saudita pidió una sola cosa. Contra México le pegó desde afuera del área y el país volvió a respirar.',
