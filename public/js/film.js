@@ -97,7 +97,7 @@ const SCENES = [
     img: '2026-228.jpg', clip: '2026-papa.mp4', look: 'soft', dur: 12700, intensity: 0.45, pos: 'center 12%',
     eyebrow: 'Nueva Jersey · 19 de julio de 2026',
     title: 'Por mi viejo',
-    body: 'La final se escapó en el alargue. Con la medalla de plata colgada, habló de Jorge, su papá, el que lo acompañó desde Grandoli hasta Barcelona: <em>“Las piernas ya no me daban, pero quería llevármela por él.”</em>',
+    body: 'La final se escapó en el alargue. Con la medalla de plata colgada y pensando en Jorge, su papá, el que lo acompañó desde Grandoli hasta Barcelona, lo dijo sin vueltas: <em>“No pude, las piernas no me daban más. Esta vez intenté ir contra mi físico, pero no pude. Nunca pude sentirme bien.”</em>',
   },
   {
     img: 'hinchas-230.jpg', kind: 'center', dim: true, below: true, kb: 'kb-in', look: 'mono', dur: 11500, intensity: 0.35,
