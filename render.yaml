@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: gracias-messi
+    runtime: node
+    plan: starter
+    buildCommand: npm ci
+    startCommand: npm start
+    healthCheckPath: /api/media
+    envVars:
+      - key: NODE_VERSION
+        value: "20"
+      - key: DATABASE_URL
+        fromDatabase:
+          name: gracias-messi-db
+          property: connectionString
+
+databases:
+  - name: gracias-messi-db
+    plan: basic-256mb
+    databaseName: gracias_messi
+    user: gracias_messi
