@@ -39,6 +39,7 @@ class Score {
     this.ctx = null;
     this.muted = false;
     this.ducked = false;
+    this.held = false;
     this.level = 0.85;
     this.intensity = 0;
     this.track = null;
@@ -215,6 +216,25 @@ class Score {
   duck(on) {
     this.ducked = on;
     this.fade(on ? this.level * 0.15 : this.level, 0.6, false);
+  }
+
+  hold(on) {
+    if (this.held === on) return;
+    this.held = on;
+    if (on) {
+      this.fade(0, 0.3, false);
+      setTimeout(() => {
+        if (!this.held) return;
+        if (this.track) this.track.pause();
+        else this.ctx?.suspend();
+      }, 320);
+      return;
+    }
+    if (!document.hidden) {
+      if (this.track) this.track.play().catch(() => {});
+      else this.ctx?.resume();
+    }
+    this.fade(this.ducked ? this.level * 0.15 : this.level, 0.8, false);
   }
 
   setMuted(m) {

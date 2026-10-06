@@ -77,6 +77,7 @@ $('mute').addEventListener('click', () => {
 });
 
 document.addEventListener('visibilitychange', () => {
+  if (score.held) return;
   if (score.track) {
     if (document.hidden) score.track.pause();
     else score.track.play().catch(() => {});

@@ -184,6 +184,7 @@ export class Messages {
 
   closeForm() {
     if (this.recorder?.state === 'recording') this.recorder.stop();
+    $('recPreview').pause();
     $('sheet').hidden = true;
   }
 
@@ -289,7 +290,11 @@ export class Messages {
     };
     drawIdle();
 
+    preview.addEventListener('play', () => score.hold(true));
+    preview.addEventListener('pause', () => score.hold(false));
+
     const reset = () => {
+      preview.pause();
       this.blob = null;
       preview.hidden = true;
       preview.removeAttribute('src');
@@ -350,7 +355,7 @@ export class Messages {
         stream.getTracks().forEach((t) => t.stop());
         actx.close();
         rec.classList.remove('is-recording');
-        score.duck(false);
+        score.hold(false);
         const blob = new Blob(chunks, { type: mr.mimeType || 'audio/webm' });
         if (blob.size < 2000) {
           status.textContent = 'La grabación quedó vacía. Probá de nuevo.';
@@ -363,7 +368,7 @@ export class Messages {
         status.textContent = `Audio listo · ${fmtTime((performance.now() - t0) / 1000)}`;
       };
 
-      score.duck(true);
+      score.hold(true);
       rec.classList.add('is-recording');
       mr.start(250);
       draw();
