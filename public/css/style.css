@@ -124,6 +124,8 @@ button { font: inherit; color: inherit; cursor: pointer; }
 }
 .scene.is-in { opacity: 1; filter: none; }
 .scene.is-out { opacity: 0; filter: blur(10px) brightness(0.4); }
+.scene.is-leaving .scene__text, .scene.is-leaving .subs,
+.scene.is-out .scene__text, .scene.is-out .subs { opacity: 0; transition: opacity 0.6s ease; }
 
 .scene__media {
   position: absolute; inset: -4%;
@@ -439,12 +441,15 @@ button { font: inherit; color: inherit; cursor: pointer; }
     background-size: cover; background-position: center;
     filter: blur(28px) brightness(0.45) saturate(0.8);
   }
-  .scene__media { inset: 7vh 0 auto; height: 56vh; background-size: contain !important; background-repeat: no-repeat; background-position: center !important; }
+  .scene__media { inset: 7vh calc((1 - var(--mz, 1.35)) * 50vw) auto; height: 56vh; background-size: contain !important; background-repeat: no-repeat; background-position: center !important; }
   .scene__media video { object-fit: contain; }
   .scene--sepia .scene__blur { filter: blur(28px) brightness(0.45) grayscale(1) sepia(0.3) hue-rotate(175deg) saturate(1.6); }
   .scene--mono .scene__blur { filter: blur(28px) brightness(0.4) grayscale(1); }
   .scene__shade { background: linear-gradient(180deg, rgba(6,10,17,0) 45%, rgba(6,10,17,0.85) 72%, rgba(6,10,17,0.95) 100%); }
   .scene__text--top { top: calc(63vh + 18px); }
+  .scene--below .scene__media { height: 42vh; }
+  .scene--below .scene__shade { background: linear-gradient(180deg, rgba(6,10,17,0) 30%, rgba(6,10,17,0.9) 52%, rgba(6,10,17,0.95) 100%) !important; }
+  .scene--below .scene__text { top: calc(49vh + 8px); bottom: auto; transform: translateX(-50%); }
   .subs { bottom: calc(7vh + 40px); }
   .toast { top: 64px; }
 }

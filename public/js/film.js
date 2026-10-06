@@ -13,7 +13,7 @@ const SCENES = [
     body: 'Tercer hijo de Jorge y Celia. Un barrio del sur, una pelota gastada y una abuela que no se perdía un partido.',
   },
   {
-    img: 'abuela.jpg', video: '/video/abuela.mp4', kb: 'kb-out', look: 'sepia', dur: 12400,
+    img: 'abuela.jpg', video: '/video/abuela.mp4', kb: 'kb-out', look: 'sepia', dur: 12400, mz: 1.2,
     eyebrow: 'Club Abanderado Grandoli · principios de los 90',
     subs: [
       { at: 400, to: 2600, narr: true, text: 'Faltaba un chico para completar el equipo.' },
@@ -35,7 +35,7 @@ const SCENES = [
     body: 'Un problema de crecimiento, un tratamiento que en casa no se podía pagar y un contrato firmado en una servilleta. Se fue a Barcelona. Nunca dejó de hablar como en Rosario.',
   },
   {
-    img: 'avion.jpg', clip: 'sueno.mp4', look: 'soft', dur: 14700,
+    img: 'avion.jpg', clip: 'sueno.mp4', mz: 1, look: 'soft', dur: 14700,
     eyebrow: 'Antes de ser Messi',
     title: 'El sueño',
   },
@@ -100,7 +100,7 @@ const SCENES = [
     body: 'La final se escapó en el alargue. Con la medalla de plata colgada, habló de Jorge, su papá, el que lo acompañó desde Grandoli hasta Barcelona: <em>“Las piernas ya no me daban, pero quería llevármela por él.”</em>',
   },
   {
-    img: 'hinchas-230.jpg', kind: 'center', dim: true, kb: 'kb-in', look: 'mono', dur: 11500, intensity: 0.35,
+    img: 'hinchas-230.jpg', kind: 'center', dim: true, below: true, kb: 'kb-in', look: 'mono', dur: 11500, intensity: 0.35,
     eyebrow: 'Más allá de la pelota',
     title: 'No es solo cómo juega',
     body: 'Es el pibe que nunca se la creyó. El que perdió tres finales seguidas y volvió a intentarlo. El que abraza al rival, saluda al utilero y sigue hablando como en Rosario. <em>Humildad, pasión, sacrificio. Por eso no solo lo admiramos: lo queremos.</em>',
@@ -184,6 +184,7 @@ export class Film {
       el.querySelectorAll('.stat__n').forEach((n) => this.later(() => this.count(n), 900));
     }
     if (s.final) this.later(() => this.root.classList.add('is-ending'), s.dur - 2200);
+    this.later(() => el.classList.add('is-leaving'), s.dur - 700);
 
     this.progress.style.width = `${((this.elapsed + s.dur) / this.total) * 100}%`;
     this.elapsed += s.dur;
@@ -192,8 +193,9 @@ export class Film {
 
   build(s) {
     const el = document.createElement('div');
-    el.className = `scene ${s.kb || ''} ${s.look ? `scene--${s.look}` : ''} ${s.kind === 'center' || s.kind === 'stats' ? 'scene--center' : ''}`;
+    el.className = `scene ${s.kb || ''} ${s.look ? `scene--${s.look}` : ''} ${s.kind === 'center' || s.kind === 'stats' ? 'scene--center' : ''} ${s.below ? 'scene--below' : ''}`;
     el.style.setProperty('--dur', `${s.dur + 2000}ms`);
+    if (s.mz) el.style.setProperty('--mz', s.mz);
 
     let media = '';
     if (s.video && this.hasVideo) {
