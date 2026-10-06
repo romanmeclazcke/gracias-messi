@@ -106,7 +106,7 @@ const SCENES = [
     body: 'Es el pibe que nunca se la creyó. El que perdió tres finales seguidas y volvió a intentarlo. El que abraza al rival, saluda al utilero y sigue hablando como en Rosario. <em>Humildad, pasión, sacrificio. Por eso no solo lo admiramos: lo queremos.</em>',
   },
   {
-    img: '2026-egipto.jpg', kind: 'stats', kb: 'kb-in', look: 'mono', dur: 8000, intensity: 0.5, pos: 'center 18%',
+    img: '2026-egipto.jpg', kind: 'stats', full: true, kb: 'kb-in', look: 'mono', dur: 8000, intensity: 0.5, pos: 'center 18%',
     eyebrow: 'Con la celeste y blanca · 2005 — 2026',
     stats: [[207, 'partidos'], [125, 'goles'], [6, 'títulos']],
   },
@@ -193,9 +193,10 @@ export class Film {
 
   build(s) {
     const el = document.createElement('div');
-    el.className = `scene ${s.kb || ''} ${s.look ? `scene--${s.look}` : ''} ${s.kind === 'center' || s.kind === 'stats' ? 'scene--center' : ''} ${s.below ? 'scene--below' : ''}`;
+    el.className = `scene ${s.kb || ''} ${s.look ? `scene--${s.look}` : ''} ${s.kind === 'center' || s.kind === 'stats' ? 'scene--center' : ''} ${s.below ? 'scene--below' : ''} ${s.full ? 'scene--full' : ''}`;
     el.style.setProperty('--dur', `${s.dur + 2000}ms`);
     if (s.mz) el.style.setProperty('--mz', s.mz);
+    if (s.pos) el.style.setProperty('--pos', s.pos);
 
     let media = '';
     if (s.video && this.hasVideo) {

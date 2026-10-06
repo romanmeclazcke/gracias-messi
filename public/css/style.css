@@ -438,6 +438,8 @@ button { font: inherit; color: inherit; cursor: pointer; }
   .scene--mono .scene__blur { filter: blur(28px) brightness(0.4) grayscale(1); }
   .scene__shade { background: linear-gradient(180deg, rgba(6,10,17,0.55) 0%, rgba(6,10,17,0) 12%, rgba(6,10,17,0) 52%, rgba(6,10,17,0.88) 64%, rgba(6,10,17,0.95) 100%); }
   .scene:not(.scene--center) .scene__text { top: calc(58vh + 22px); bottom: auto; }
+  .scene--full .scene__media { inset: 0; height: auto; background-size: cover !important; background-position: var(--pos, center) !important; transform-origin: center; }
+  .scene--full .scene__blur { display: none; }
   .scene--below .scene__media { height: 46vh; }
   .scene--below .scene__shade { background: linear-gradient(180deg, rgba(6,10,17,0) 36%, rgba(6,10,17,0.9) 48%, rgba(6,10,17,0.95) 100%) !important; }
   .scene--below .scene__text { top: calc(46vh + 14px); bottom: auto; transform: translateX(-50%); }
