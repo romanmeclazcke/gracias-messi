@@ -29,7 +29,7 @@ const SCENES = [
     body: 'La primera la dejó pasar. La segunda le cayó en la zurda y arrancó: dejó a todos en el camino. <em>Desde entonces, cada gol tiene dos dedos apuntando al cielo. Son para ella.</em>',
   },
   {
-    img: 'avion.jpg', kb: 'kb-in', look: 'cool', dur: 6200, intensity: 0.15,
+    img: 'barcelona.jpg', side: true, kb: 'kb-in', look: 'soft', dur: 6200, intensity: 0.15,
     eyebrow: 'Año 2000 · 13 años',
     title: 'Se fue chiquito',
     body: 'Un problema de crecimiento, un tratamiento que en casa no se podía pagar y un contrato firmado en una servilleta. Se fue a Barcelona. Nunca dejó de hablar como en Rosario.',
@@ -193,7 +193,7 @@ export class Film {
 
   build(s) {
     const el = document.createElement('div');
-    el.className = `scene ${s.kb || ''} ${s.look ? `scene--${s.look}` : ''} ${s.kind === 'center' || s.kind === 'stats' ? 'scene--center' : ''} ${s.below ? 'scene--below' : ''} ${s.full ? 'scene--full' : ''}`;
+    el.className = `scene ${s.kb || ''} ${s.look ? `scene--${s.look}` : ''} ${s.kind === 'center' || s.kind === 'stats' ? 'scene--center' : ''} ${s.below ? 'scene--below' : ''} ${s.full ? 'scene--full' : ''} ${s.side ? 'scene--side' : ''}`;
     el.style.setProperty('--dur', `${s.dur + 2000}ms`);
     if (s.mz) el.style.setProperty('--mz', s.mz);
     if (s.pos) el.style.setProperty('--pos', s.pos);

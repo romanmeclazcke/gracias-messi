@@ -426,6 +426,16 @@ button { font: inherit; color: inherit; cursor: pointer; }
   .world__head { top: 56px; }
 }
 
+@media (min-aspect-ratio: 4/5) {
+  .scene--side .scene__blur {
+    display: block; position: absolute; inset: -10%;
+    background-size: cover; background-position: center;
+    filter: blur(32px) brightness(0.4) saturate(0.8);
+  }
+  .scene--side .scene__media { inset: 8vh 6vw 8vh 50%; background-size: contain; background-repeat: no-repeat; background-position: center; }
+  .scene--side .scene__text { right: 52%; }
+}
+
 @media (max-aspect-ratio: 4/5) {
   .scene__blur {
     display: block; position: absolute; inset: -10%;
