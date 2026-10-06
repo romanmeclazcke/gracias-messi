@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Gracias, Leo · 2005 — 2026</title>
+  <meta name="description" content="Homenaje colectivo a Lionel Messi en su despedida de la Selección Argentina. Un mundo donde cada luz es un mensaje dejado por un hincha." />
+  <meta property="og:title" content="Gracias, Leo · 2005 — 2026" />
+  <meta property="og:description" content="Un mundo donde cada luz es un mensaje para el capitán. Dejá el tuyo." />
+  <meta property="og:image" content="/img/2026-egipto.jpg" />
+  <meta property="og:locale" content="es_AR" />
+  <meta name="theme-color" content="#060a11" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23060a11'/%3E%3Ctext x='32' y='47' font-family='Impact,sans-serif' font-size='40' text-anchor='middle' fill='%23f5f8fc'%3E10%3C/text%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=Oswald:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <script type="importmap">
+    { "imports": {
+        "three": "/vendor/three/build/three.module.min.js",
+        "three/addons/": "/vendor/three/examples/jsm/"
+    } }
+  </script>
+</head>
+<body>
+  <header class="sr-only">
+    <h1>Gracias, Leo · 2005 — 2026</h1>
+    <p>Homenaje colectivo a Lionel Andrés Messi en su despedida de la Selección Argentina: 207 partidos, 125 goles, campeón del mundo. Un mundo donde cada luz es un mensaje.</p>
+  </header>
+
+  <svg class="grain grain--still" aria-hidden="true"><filter id="gA"><feTurbulence type="fractalNoise" baseFrequency="0.72" numOctaves="3" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter><rect width="100%" height="100%" filter="url(#gA)"/></svg>
+  <svg class="grain grain--drift" aria-hidden="true"><filter id="gB"><feTurbulence type="fractalNoise" baseFrequency="0.32" numOctaves="2" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter><rect width="100%" height="100%" filter="url(#gB)"/></svg>
+  <div class="vignette" aria-hidden="true"></div>
+
+  <!-- Entrada -->
+  <button type="button" class="gate" id="gate" aria-label="Entrar al homenaje">
+    <span class="gate__ten">10</span>
+    <span class="gate__name">Lionel Andrés Messi</span>
+    <span class="gate__dates">2005 — 2026</span>
+    <span class="gate__hint label-cap">entrar</span>
+    <span class="gate__sound label-cap">con sonido</span>
+  </button>
+
+  <!-- Intro cinematográfica -->
+  <section class="film" id="film" aria-live="polite" hidden>
+    <div class="film__stage" id="stage"></div>
+    <div class="film__bars" aria-hidden="true"><span></span><span></span></div>
+    <div class="film__progress" aria-hidden="true"><span id="progress"></span></div>
+    <button type="button" class="film__skip label-cap" id="skip">saltar intro</button>
+  </section>
+
+  <!-- Mundo -->
+  <section class="world" id="world" hidden>
+    <canvas id="globe" aria-label="Mundo con mensajes de hinchas"></canvas>
+
+    <div class="world__head">
+      <p class="label-cap world__eyebrow">Para el capitán</p>
+      <h2 class="world__title">Gracias, <em>Leo</em></h2>
+      <p class="world__sub" id="counter">Cargando mensajes…</p>
+    </div>
+
+    <div class="world__actions">
+      <button type="button" class="btn btn--primary" id="openForm">
+        <span class="btn__dot"></span> Dejá tu mensaje
+      </button>
+      <button type="button" class="btn btn--ghost" id="randomMsg">Escuchar uno al azar</button>
+      <button type="button" class="btn btn--ghost" id="replay">Volver a ver</button>
+    </div>
+
+    <p class="world__hint label-cap" id="hint">Arrastrá para girar · tocá una luz</p>
+
+    <!-- Tarjeta de mensajes de una ciudad -->
+    <aside class="card" id="card" hidden aria-live="polite">
+      <button type="button" class="card__close" id="cardClose" aria-label="Cerrar">&times;</button>
+      <p class="label-cap card__city" id="cardCity"></p>
+      <div class="card__list" id="cardList"></div>
+    </aside>
+
+    <!-- Formulario -->
+    <div class="sheet" id="sheet" hidden>
+      <form class="sheet__panel" id="form" novalidate>
+        <button type="button" class="card__close" id="formClose" aria-label="Cerrar">&times;</button>
+        <p class="label-cap sheet__eyebrow">Tu luz en el mapa</p>
+        <h3 class="sheet__title">Decile algo a Leo</h3>
+
+        <div class="field">
+          <label class="field__label" for="fName">Tu nombre</label>
+          <input class="field__input" id="fName" name="name" maxlength="40" autocomplete="given-name" placeholder="Como te dicen en el barrio" />
+        </div>
+
+        <div class="field field--city">
+          <label class="field__label" for="fCity">¿Desde qué ciudad?</label>
+          <input class="field__input" id="fCity" autocomplete="off" placeholder="Ej: Rosario" role="combobox" aria-expanded="false" aria-controls="cityList" required />
+          <ul class="city-list" id="cityList" role="listbox" hidden></ul>
+          <p class="field__hint" id="cityHint">Escribí y elegí de la lista.</p>
+        </div>
+
+        <div class="field">
+          <label class="field__label" for="fText">Tu mensaje</label>
+          <textarea class="field__input field__input--area" id="fText" name="text" maxlength="600" rows="4" placeholder="Lo que nunca le pudiste decir…"></textarea>
+          <p class="field__hint"><span id="textCount">0</span>/600</p>
+        </div>
+
+        <div class="field">
+          <span class="field__label">O mandale un audio</span>
+          <div class="rec" id="rec">
+            <button type="button" class="rec__btn" id="recBtn" aria-label="Grabar audio"><span class="rec__icon"></span></button>
+            <div class="rec__body">
+              <canvas class="rec__wave" id="recWave" width="400" height="48"></canvas>
+              <p class="rec__status" id="recStatus">Tocá para grabar (hasta 90 segundos)</p>
+            </div>
+            <button type="button" class="rec__discard" id="recDiscard" hidden>Borrar</button>
+          </div>
+          <audio class="rec__preview" id="recPreview" controls hidden></audio>
+        </div>
+
+        <p class="form__error" id="formError" role="alert"></p>
+        <button type="submit" class="btn btn--primary btn--full" id="submitBtn">Encender mi luz</button>
+      </form>
+    </div>
+
+    <div class="toast" id="toast" role="status"></div>
+  </section>
+
+  <button type="button" class="mute label-cap" id="mute" hidden aria-pressed="false">sonido on</button>
+
+  <script type="module" src="/js/main.js"></script>
+</body>
+</html>

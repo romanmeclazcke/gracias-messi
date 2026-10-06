@@ -1,0 +1,19 @@
+{
+  "name": "gracias-messi",
+  "version": "1.0.0",
+  "description": "Homenaje colectivo a Lionel Messi",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "express": "^4.22.3",
+    "multer": "^1.4.4",
+    "three": "^0.169.0"
+  },
+  "private": true
+}
