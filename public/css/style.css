@@ -164,7 +164,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
   bottom: clamp(70px, 14vh, 160px);
   max-width: 760px;
 }
-.scene__text--top { top: calc(7vh + 40px); bottom: auto; }
+.scene__text--top { top: 64px; bottom: auto; }
 .scene--center .scene__text {
   left: 50%; right: auto; bottom: 50%; transform: translate(-50%, 50%);
   text-align: center; width: min(92vw, 900px); max-width: none;
@@ -216,15 +216,6 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .flash.go { animation: flash 1.4s var(--ease-film); }
 @keyframes flash { 0% { opacity: 0; } 12% { opacity: 0.85; } 100% { opacity: 0; } }
 
-.film__bars span {
-  position: absolute; left: 0; right: 0; height: 7vh; background: #03060b; z-index: 4;
-  transition: transform 1.6s var(--ease-film);
-}
-.film__bars span:first-child { top: 0; }
-.film__bars span:last-child { bottom: 0; }
-.film.is-ending .film__bars span:first-child { transform: translateY(-100%); }
-.film.is-ending .film__bars span:last-child { transform: translateY(100%); }
-
 .film__progress {
   position: absolute; left: 0; right: 0; bottom: 0; height: 2px; z-index: 5;
   background: rgba(244, 248, 252, 0.06);
@@ -232,7 +223,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .film__progress span { display: block; height: 100%; width: 0; background: var(--accent); transition: width 0.4s linear; }
 
 .film__skip {
-  position: absolute; right: 22px; top: calc(7vh + 14px); z-index: 6;
+  position: absolute; right: 22px; top: 18px; z-index: 6;
   background: none; border: 0; color: rgba(244, 248, 252, 0.5); padding: 8px;
   transition: color 0.3s;
 }
@@ -405,7 +396,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .toast.on { opacity: 1; transform: translate(-50%, 0); }
 
 .mute {
-  position: fixed; left: 22px; top: calc(7vh + 14px); z-index: 150;
+  position: fixed; left: 22px; top: 18px; z-index: 150;
   background: none; border: 0; color: rgba(244, 248, 252, 0.5); padding: 8px; display: flex; align-items: center; gap: 10px;
 }
 .mute::before {
@@ -418,7 +409,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .mute.is-world { top: auto; bottom: clamp(30px, 6vh, 70px); left: auto; right: clamp(20px, 5vw, 72px); transform: translateY(-28px); }
 
 @media (max-width: 767px) {
-  .scene__text { left: 22px; right: 22px; bottom: calc(7vh + 34px); }
+  .scene__text { left: 22px; right: 22px; bottom: 40px; }
   .scene__shade { background: linear-gradient(180deg, rgba(6,10,17,0.5) 0%, rgba(6,10,17,0) 30%, rgba(6,10,17,0.2) 50%, rgba(6,10,17,0.92) 100%); }
   .stats { grid-template-columns: 1fr; gap: 14px; }
   .world__head { right: 20px; }
@@ -441,16 +432,16 @@ button { font: inherit; color: inherit; cursor: pointer; }
     background-size: cover; background-position: center;
     filter: blur(28px) brightness(0.45) saturate(0.8);
   }
-  .scene__media { inset: 7vh calc((1 - var(--mz, 1.35)) * 50vw) auto; height: 56vh; background-size: contain !important; background-repeat: no-repeat; background-position: center !important; }
+  .scene__media { inset: 0 calc((1 - var(--mz, 1.35)) * 50vw) auto; height: 62vh; background-size: contain !important; background-repeat: no-repeat; background-position: center !important; }
   .scene__media video { object-fit: contain; }
   .scene--sepia .scene__blur { filter: blur(28px) brightness(0.45) grayscale(1) sepia(0.3) hue-rotate(175deg) saturate(1.6); }
   .scene--mono .scene__blur { filter: blur(28px) brightness(0.4) grayscale(1); }
-  .scene__shade { background: linear-gradient(180deg, rgba(6,10,17,0) 45%, rgba(6,10,17,0.85) 72%, rgba(6,10,17,0.95) 100%); }
-  .scene__text--top { top: calc(63vh + 18px); }
-  .scene--below .scene__media { height: 42vh; }
-  .scene--below .scene__shade { background: linear-gradient(180deg, rgba(6,10,17,0) 30%, rgba(6,10,17,0.9) 52%, rgba(6,10,17,0.95) 100%) !important; }
-  .scene--below .scene__text { top: calc(49vh + 8px); bottom: auto; transform: translateX(-50%); }
-  .subs { bottom: calc(7vh + 40px); }
+  .scene__shade { background: linear-gradient(180deg, rgba(6,10,17,0.55) 0%, rgba(6,10,17,0) 12%, rgba(6,10,17,0) 50%, rgba(6,10,17,0.85) 72%, rgba(6,10,17,0.95) 100%); }
+  .scene__text--top { top: calc(62vh + 18px); }
+  .scene--below .scene__media { height: 46vh; }
+  .scene--below .scene__shade { background: linear-gradient(180deg, rgba(6,10,17,0) 36%, rgba(6,10,17,0.9) 48%, rgba(6,10,17,0.95) 100%) !important; }
+  .scene--below .scene__text { top: calc(46vh + 14px); bottom: auto; transform: translateX(-50%); }
+  .subs { bottom: 44px; }
   .toast { top: 64px; }
 }
 
